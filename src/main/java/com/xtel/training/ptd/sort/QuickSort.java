@@ -47,7 +47,6 @@ public class QuickSort extends RecursiveAction {
         }
 
         swap(storeIndex, right);
-
         return storeIndex;
     }
 

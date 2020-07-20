@@ -26,14 +26,15 @@ public class Main {
 
         long total_time, start_time;
 
-        //TEST: LOOP
         for (int i = 0; i < 5; i++) {
-            System.out.println("---- LOOP " + (i+1) + " ----");
+            //TEST LOOP
+            System.out.println("---- LOOP " + (i + 1) + " ----");
 
             int[] arr1 = generateArray(BASE_ARRAY_SIZE);
             int[] arr2 = Arrays.copyOf(arr1, arr1.length);
             int[] arr3 = Arrays.copyOf(arr1, arr1.length);
             int[] arr4 = Arrays.copyOf(arr1, arr1.length);
+            int[] arr5 = Arrays.copyOf(arr1, arr1.length);
 
 
             //TEST CASE: quickSort()
@@ -46,14 +47,26 @@ public class Main {
 
 
             //TEST CASE: ForkJoinPool and QuickSort
+            QuickSort quickSort = new QuickSort(arr2);
+            ForkJoinPool quickSort_pool = new ForkJoinPool();
+
             start_time = System.currentTimeMillis();
 
-            QuickSort quickSort = new QuickSort(arr2);
-            ForkJoinPool pool = new ForkJoinPool();
-            pool.invoke(quickSort);
+            quickSort_pool.invoke(quickSort);
 
             total_time = System.currentTimeMillis() - start_time;
-            System.out.println(String.format("ForkJoinPool and QuickSort() %d ms", total_time));
+            System.out.println(String.format("ForkJoinPool and QuickSort %d ms", total_time));
+
+            //TEST CASE: ForkJoinPool and MergeSort
+            MergeSort mergeSort = new MergeSort(arr5);
+            ForkJoinPool mergeSort_pool = new ForkJoinPool();
+
+            start_time = System.currentTimeMillis();
+
+            mergeSort_pool.invoke(mergeSort);
+
+            total_time = System.currentTimeMillis() - start_time;
+            System.out.println(String.format("ForkJoinPool and MergeSort %d ms", total_time));
 
 
             //TEST CASE: Arrays.sort()
@@ -71,7 +84,7 @@ public class Main {
             Arrays.parallelSort(arr4);
 
             total_time = System.currentTimeMillis() - start_time;
-            System.out.println(String.format("Array.parallelSort() %d ms", total_time));
+            System.out.println(String.format("Arrays.parallelSort() %d ms", total_time));
         }
 
     }

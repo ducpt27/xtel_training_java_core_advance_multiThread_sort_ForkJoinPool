@@ -33,7 +33,7 @@ public class SortUtils {
         }
     }
 
-    public static void merge(int[] l, int[] r, int left,
+    public static int[] merge(int[] l, int[] r, int left,
                              int right, int[] numbers) {
         int i = 0, j = 0, k = 0;
 
@@ -49,12 +49,14 @@ public class SortUtils {
 
         while (j < right)
             numbers[k++] = r[j++];
+
+        return numbers;
     }
 
 
-    public static void mergeSort(int[] numbers, int lastIndex) {
+    public static int[] mergeSort(int[] numbers, int lastIndex) {
         if (lastIndex < 2)
-            return;
+            return null;
 
         int mid = lastIndex / 2;
         int[] l = new int[mid];
@@ -69,7 +71,7 @@ public class SortUtils {
         mergeSort(l, mid);
         mergeSort(r, lastIndex - mid);
 
-        merge(l, r, mid, lastIndex - mid, numbers);
+        return merge(l, r, mid, lastIndex - mid, numbers);
     }
 
     public static void swap(int[] numbers, int i, int j) {
