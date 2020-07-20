@@ -33,33 +33,27 @@ public class MergeSort extends RecursiveAction {
     }
 
     private void merge(int left, int mid, int right) {
+
         int arr_temp [] = new int[right - left + 1];
+
         int x = left;
         int y = mid + 1;
         int z = 0;
 
         while (x <= mid && y <= right) {
-            if (array[x] <= array[y]) {
-                arr_temp[z] = array[x];
-                z++;
-                x++;
-            } else {
-                arr_temp[z] = array[y];
-                z++;
-                y++;
-            }
+            if (array[x] <= array[y])
+                arr_temp[z++] = array[x++];
+            else
+                arr_temp[z++] = array[y++];
         }
 
-        while (y <= right) {
+        while (y <= right)
             arr_temp[z++] = array[y++];
-        }
 
-        while (x <= mid) {
+        while (x <= mid)
             arr_temp[z++] = array[x++];
-        }
 
-        for (z = 0; z < arr_temp.length; z++) {
+        for (z = 0; z < arr_temp.length; z++)
             array[left + z] = arr_temp[z];
-        }
     }
 }

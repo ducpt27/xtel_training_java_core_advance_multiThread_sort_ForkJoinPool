@@ -1,5 +1,6 @@
 package com.xtel.training.ptd.sort;
 
+import com.xtel.training.ptd.common.utils.NumberUtils;
 import com.xtel.training.ptd.common.utils.SortUtils;
 
 import java.util.Arrays;
@@ -10,27 +11,14 @@ public class Main {
 
     private static final int BASE_ARRAY_SIZE = 50000000;
 
-    public static int[] generateArray(int size) {
-        Random random = new Random();
-        if (size <= 0 || size > Integer.MAX_VALUE)
-            return null;
-
-        int[] result = new int[size];
-        for (int i = 0; i < size; i++)
-            result[i] = random.nextInt(BASE_ARRAY_SIZE);
-
-        return result;
-    }
-
     public static void main(String[] args) {
-
         long total_time, start_time;
 
         for (int i = 0; i < 5; i++) {
             //TEST LOOP
             System.out.println("---- LOOP " + (i + 1) + " ----");
 
-            int[] arr1 = generateArray(BASE_ARRAY_SIZE);
+            int[] arr1 = NumberUtils.getNumbers(0, BASE_ARRAY_SIZE, BASE_ARRAY_SIZE);
             int[] arr2 = Arrays.copyOf(arr1, arr1.length);
             int[] arr3 = Arrays.copyOf(arr1, arr1.length);
             int[] arr4 = Arrays.copyOf(arr1, arr1.length);
@@ -40,10 +28,11 @@ public class Main {
             //TEST CASE: quickSort()
             start_time = System.currentTimeMillis();
 
-            SortUtils.quickSort(arr1);
+            SortUtils.quickSort(arr1); // SORT
 
             total_time = System.currentTimeMillis() - start_time;
             System.out.println(String.format("QuickSort():  %d ms", total_time));
+            // -> ~ 10 second
 
 
             //TEST CASE: ForkJoinPool and QuickSort
@@ -52,10 +41,11 @@ public class Main {
 
             start_time = System.currentTimeMillis();
 
-            quickSort_pool.invoke(quickSort);
+            quickSort_pool.invoke(quickSort); // SORT
 
             total_time = System.currentTimeMillis() - start_time;
             System.out.println(String.format("ForkJoinPool and QuickSort %d ms", total_time));
+            // -> ~ 4 second
 
             //TEST CASE: ForkJoinPool and MergeSort
             MergeSort mergeSort = new MergeSort(arr5);
@@ -63,28 +53,31 @@ public class Main {
 
             start_time = System.currentTimeMillis();
 
-            mergeSort_pool.invoke(mergeSort);
+            mergeSort_pool.invoke(mergeSort); // SORT
 
             total_time = System.currentTimeMillis() - start_time;
             System.out.println(String.format("ForkJoinPool and MergeSort %d ms", total_time));
+            // -> ~ 5.5 second
 
 
             //TEST CASE: Arrays.sort()
             start_time = System.currentTimeMillis();
 
-            Arrays.sort(arr3);
+            Arrays.sort(arr3); // SORT
 
             total_time = System.currentTimeMillis() - start_time;
             System.out.println(String.format("Array.sort() %d ms", total_time));
+            // -> ~ 8 second
 
 
             //TEST CASE: Arrays.parallelSort()
             start_time = System.currentTimeMillis();
 
-            Arrays.parallelSort(arr4);
+            Arrays.parallelSort(arr4); // SORT
 
             total_time = System.currentTimeMillis() - start_time;
             System.out.println(String.format("Arrays.parallelSort() %d ms", total_time));
+            // -> ~ 3 second
         }
 
     }
