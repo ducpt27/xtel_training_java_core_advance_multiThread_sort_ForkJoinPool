@@ -1,6 +1,6 @@
-package com.xtel.training.threadpool.thread_pool;
+package com.xtel.training.thread;
 
-public class MyQueue<E> {
+public class MyBlockingQueue<E> {
 
     private final Object doPut = new Object();
 
@@ -12,11 +12,11 @@ public class MyQueue<E> {
 
     private Node<E> first, last;
 
-    public MyQueue() {
+    public MyBlockingQueue() {
         this(Integer.MAX_VALUE);
     }
 
-    public MyQueue(int capacity) {
+    public MyBlockingQueue(int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException();
         }

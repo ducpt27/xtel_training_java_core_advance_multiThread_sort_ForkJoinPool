@@ -1,6 +1,6 @@
-package com.xtel.training.super_sort;
+package com.xtel.training.sort;
 
-import com.xtel.training.threadpool.thread_pool.MyQueue;
+import com.xtel.training.thread.MyBlockingQueue;
 
 public class QuickSort implements Runnable {
 
@@ -10,9 +10,9 @@ public class QuickSort implements Runnable {
 
     private int right;
 
-    private MyQueue queue;
+    private MyBlockingQueue queue;
 
-    public QuickSort(int[] numbers, MyQueue queue) {
+    public QuickSort(int[] numbers, MyBlockingQueue queue) {
         if (numbers == null || queue == null)
             throw new IllegalArgumentException();
 
@@ -22,7 +22,7 @@ public class QuickSort implements Runnable {
         this.right = numbers.length - 1;
     }
 
-    public QuickSort(int[] numbers, int left, int right, MyQueue queue) {
+    public QuickSort(int[] numbers, int left, int right, MyBlockingQueue queue) {
         this.numbers = numbers;
         this.left = left;
         this.right = right;
@@ -45,16 +45,8 @@ public class QuickSort implements Runnable {
         }
     }
 
-    public synchronized int[] getNumbers() {
+    public int[] getNumbers() {
         return numbers;
-    }
-
-    public synchronized int getLeft() {
-        return left;
-    }
-
-    public synchronized int getRight() {
-        return right;
     }
 
     private static int partition(int[] numbers, int pivotIndex, int l, int r) {
