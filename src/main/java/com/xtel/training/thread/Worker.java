@@ -9,6 +9,7 @@ public class Worker extends Thread {
     MyBlockingQueue<Runnable> queue;
 
     public Worker(MyBlockingQueue<Runnable> queue) {
+        this.queue = queue;
     }
 
     @Override
